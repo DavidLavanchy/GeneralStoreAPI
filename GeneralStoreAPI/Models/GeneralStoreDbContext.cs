@@ -15,5 +15,6 @@ namespace GeneralStoreAPI.Models
         public DbSet<Customer.Customer> Customers { get; set; }
         public DbSet<Product.Product> Products { get; set; }
         public DbSet<Transaction.Transaction> Transactions { get; set; }
+
     }
 }
