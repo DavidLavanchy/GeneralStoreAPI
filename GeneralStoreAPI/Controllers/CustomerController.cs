@@ -35,11 +35,19 @@ namespace GeneralStoreAPI.Controllers
 
             return Ok(customers);
         }
-
         //get customer by id
-        //public async Task<IHttpActionResult> GetCustomerById([FromUri]int id)
-        //{
+        [HttpGet]
+        public async Task<IHttpActionResult> GetCustomerById([FromUri]int id)
+        {
+            Customer customer = await _context.Customers.FindAsync(id);
+
+            if(customer == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(customer);
            
-        //}
+        }
     }
 }
