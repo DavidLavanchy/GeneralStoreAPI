@@ -14,6 +14,7 @@ namespace GeneralStoreAPI.Controllers
     {
         private ApplicationDbContext _context = new ApplicationDbContext();
         //Post
+        [HttpPost]
         public async Task<IHttpActionResult> CreateCustomer([FromBody]Customer customer)
         {
             if (ModelState.IsValid)
@@ -26,7 +27,19 @@ namespace GeneralStoreAPI.Controllers
             // if not, reject it
             return BadRequest(ModelState);
         }
+        //get all customers
+        [HttpGet]
+        public async Task<IHttpActionResult> GetAll()
+        {
+            List<Customer> customers = await _context.Customers.ToListAsync();
 
-        //
+            return Ok(customers);
+        }
+
+        //get customer by id
+        //public async Task<IHttpActionResult> GetCustomerById([FromUri]int id)
+        //{
+           
+        //}
     }
 }
