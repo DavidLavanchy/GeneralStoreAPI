@@ -49,5 +49,39 @@ namespace GeneralStoreAPI.Controllers
             return Ok(customer);
            
         }
+
+        //update customer
+        [HttpPut]
+        public async Task<IHttpActionResult> UpdateCustomer([FromUri]int id, [FromBody] Customer updatedCustomer)
+        {
+            //Check ids if they match
+            if(id != updatedCustomer?.Id)
+            {
+                return BadRequest("ID's do not match.");
+            }
+
+            //check model state
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            //find customer in database
+            Customer customer = await _context.Customers.FindAsync(id);
+
+            //if customer doesn't exist
+            if(customer == null)
+            {
+                return NotFound();
+            }
+
+            //update properties
+            customer.FirstName = updatedCustomer.FirstName;
+            customer.LastName = updatedCustomer.LastName;
+
+            //save changes
+            await _context.SaveChangesAsync();
+            return Ok("Customer was updated successfully!");
+        }
     }
 }
