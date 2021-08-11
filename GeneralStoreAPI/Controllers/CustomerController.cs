@@ -83,5 +83,22 @@ namespace GeneralStoreAPI.Controllers
             await _context.SaveChangesAsync();
             return Ok("Customer was updated successfully!");
         }
+
+        //delete 
+        [HttpDelete]
+        public async Task<IHttpActionResult> DeleteCustomer([FromUri]int id)
+        {
+            //get customer
+            Customer customer = await _context.Customers.FindAsync(id);
+
+            if(customer == null)
+            {
+                return NotFound();
+            }
+
+            _context.Customers.Remove(customer);
+            await _context.SaveChangesAsync();
+            return Ok("Customer Deleted");
+        }
     }
 }
