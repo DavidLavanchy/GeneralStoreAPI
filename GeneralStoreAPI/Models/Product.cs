@@ -9,7 +9,7 @@ namespace GeneralStoreAPI.Models
     public class Product
     {
         [Key]
-        public int SKU { get; set; }
+        public string SKU { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
