@@ -16,7 +16,11 @@ namespace GeneralStoreAPI.Controllers
 
         //POST (create)
         [HttpPost]
+<<<<<<< HEAD
         public async Task<IHttpActionResult> CreateProduct([FromBody] Product product)
+=======
+        public async Task<IHttpActionResult> CreateProduct([FromBody]Product product)
+>>>>>>> 3ac21b19f959ee7654298b6ff073f0cdd648f677
         {
             if (ModelState.IsValid)
             {
@@ -42,11 +46,19 @@ namespace GeneralStoreAPI.Controllers
         {
             Product product = await _context.Products.FindAsync(sku);
 
+<<<<<<< HEAD
             if (product == null)
+=======
+            if(product == null)
+>>>>>>> 3ac21b19f959ee7654298b6ff073f0cdd648f677
             {
                 return BadRequest(ModelState);
             }
             return Ok(product);
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3ac21b19f959ee7654298b6ff073f0cdd648f677
     }
 }
