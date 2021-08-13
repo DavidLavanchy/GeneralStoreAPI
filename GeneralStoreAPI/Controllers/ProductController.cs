@@ -49,5 +49,49 @@ namespace GeneralStoreAPI.Controllers
             return Ok(product);
         }
 
+        //Update Product
+        [HttpPut]
+        public async Task<IHttpActionResult> UpdateProduct([FromUri] int id, [FromBody] Product product)
+        {
+            Product oldProduct = await _context.Products.FindAsync(id);
+
+            if(id != product.SKU)
+            {
+                return BadRequest(ModelState);
+            }
+            if (product == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (oldProduct == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            oldProduct.SKU = product.SKU;
+            oldProduct.NumberOfInventory = product.NumberOfInventory;
+            oldProduct.Name = product.Name;
+            oldProduct.Cost = product.Cost;
+
+            await _context.SaveChangesAsync();
+            return Ok("Product updated!");
+        }
+
+        //return all outofstock products
+        [HttpGet]
+        public async Task<IHttpActionResult> GetAllOutOfStockItems()
+        {
+            List<Product> _products = new List<Product>();
+
+            foreach(var product in await _context.Products.ToListAsync())
+            {
+                if(product.IsInStock == false)
+                {
+                    _products.Add(product);
+                }
+            }
+            return Ok(_products);
+        }
     }
 }
